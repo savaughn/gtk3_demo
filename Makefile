@@ -16,6 +16,9 @@ SRCS = $(wildcard src/*.c)
 # Object files
 OBJS = $(patsubst src/%.c, build/%.o, $(SRCS))
 
+# include directories
+INCLUDES = -Iinclude
+
 # Default target
 all: build_dir $(TARGET)
 
@@ -25,15 +28,16 @@ build_dir:
 
 # Link the target executable
 $(TARGET): $(OBJS)
-	@$(CC) $(OBJS) -o $(TARGET) $(LDFLAGS)
+	@$(CC) $(OBJS) -o $(TARGET) $(INCLUDES) $(LDFLAGS)
+	@rm -f build/*.o
 	@echo "Build complete! Run with ./$(TARGET)"
 
 # Compile source files to object files
 build/%.o: src/%.c
-	$(CC) -c $< -o $@ $(CFLAGS)
+	@$(CC) -c $< -o $@ $(CFLAGS) $(INCLUDES)
 
 # Clean up build files
 clean:
-	rm -f build/*.o build/$(TARGET)
+	rm -f build/*.o $(TARGET)
 
 .PHONY: all clean build_dir

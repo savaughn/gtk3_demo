@@ -1,11 +1,17 @@
-#include <gtk/gtk.h>
+#include "common.h"
+#include "CloseButton.h"
+#include "MainWindow.h"
 
-int main()
+int main(int argc, char *argv[])
 {
-    gtk_init(NULL, NULL);
-    GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(window), "Hello World");
-    gtk_widget_show(window);
+    gtk_init(&argc, &argv);
+
+    GtkWidget *window = create_main_window();
+    GtkWidget *close_button = create_close_button(G_CALLBACK(on_window_closed));
+
+    gtk_container_add(GTK_CONTAINER(window), close_button);
+    gtk_widget_show_all(window);
+
     gtk_main();
         
     return 0;
