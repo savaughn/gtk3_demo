@@ -24,12 +24,14 @@ int main(int argc, char *argv[])
     g_signal_connect(count_button, "clicked", G_CALLBACK(on_button_count_press), label);
     
     GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-    gtk_box_pack_start(GTK_BOX(box), count_button, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(box), close_button, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(box), count_button, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 5);
+    gtk_box_pack_start(GTK_BOX(box), close_button, FALSE, FALSE, 5);
 
     gtk_container_add(GTK_CONTAINER(window), box);
     gtk_widget_show_all(window);
+
+    g_signal_connect(window, "key_press_event", G_CALLBACK(on_key_press), NULL);
 
     gtk_main();
         
