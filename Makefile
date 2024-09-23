@@ -8,29 +8,32 @@ CFLAGS = `pkg-config --cflags gtk+-3.0`
 LDFLAGS = `pkg-config --libs gtk+-3.0`
 
 # Target executable
-TARGET = main
+TARGET = build/main
 
 # Source files
-SRCS = main.c
+SRCS = $(wildcard src/*.c)
 
 # Object files
-OBJS = $(SRCS:.c=.o)
+OBJS = $(patsubst src/%.c, build/%.o, $(SRCS))
 
 # Default target
-all: $(TARGET)
+all: build_dir $(TARGET)
+
+# Create build directory if it doesn't exist
+build_dir:
+	@mkdir -p build
 
 # Link the target executable
 $(TARGET): $(OBJS)
 	@$(CC) $(OBJS) -o $(TARGET) $(LDFLAGS)
-	@rm -f $(OBJS)
 	@echo "Build complete! Run with ./$(TARGET)"
 
 # Compile source files to object files
-%.o: %.c
+build/%.o: src/%.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 # Clean up build files
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f build/*.o build/$(TARGET)
 
-.PHONY: all clean
+.PHONY: all clean build_dir
