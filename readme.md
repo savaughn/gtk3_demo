@@ -2,6 +2,8 @@
 
 A simple GTK+ 3 application written in C.
 
+<img width="512" alt="image" src="https://github.com/user-attachments/assets/2f1da211-5c0a-4fb2-91d1-559e78bc6915">
+
 ## Prerequisites
 
 - macOS
