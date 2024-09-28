@@ -3,12 +3,13 @@
 GtkWidget *View(ViewProps props)
 {
     GtkWidget *new_view = gtk_box_new(props.orientation, props.spacing);
+    guint element_count = props.element_count;
 
-    Element *element_0 = props.elements[0];
-    gtk_box_pack_start(GTK_BOX(new_view), element_0->element, element_0->widget_props.expand, element_0->widget_props.fill, element_0->widget_props.padding);
-
-    Element *element_1 = props.elements[1];
-    gtk_box_pack_start(GTK_BOX(new_view), element_1->element, element_1->widget_props.expand, element_1->widget_props.fill, element_1->widget_props.padding);
+    for(int i = 0; i < element_count; i++)
+    {
+        Element *element = props.elements[i];
+        gtk_box_pack_start(GTK_BOX(new_view), element->widget, element->widget_props.expand, element->widget_props.fill, element->widget_props.padding);
+    }
 
     return new_view;
 }

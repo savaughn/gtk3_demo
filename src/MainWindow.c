@@ -7,6 +7,7 @@ GtkWidget *create_main_window()
     gtk_window_set_default_size(GTK_WINDOW(window), DEFAULT_WIDTH, DEFAULT_HEIGHT);
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     g_signal_connect(window, "delete_event", G_CALLBACK(on_window_closed), NULL);
+    g_signal_connect(window, "key_press_event", G_CALLBACK(on_key_press), NULL);
 
     return window;
 }

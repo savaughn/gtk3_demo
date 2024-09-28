@@ -23,9 +23,10 @@ int main(int argc, char *argv[])
     GtkWidget *view = View((ViewProps){
         .orientation = GTK_ORIENTATION_VERTICAL,
         .spacing = 5,
+        .element_count = 3,
         .elements = {
             &(Element){
-                .element = Button((ButtonProps){
+                .widget = Button((ButtonProps){
                     .label = "Count",
                     .onPress = on_button_count_press,
                     .connected_label = label,
@@ -38,10 +39,19 @@ int main(int argc, char *argv[])
                 }
             },
             &(Element){
-                .element = label,
+                .widget = label,
                 .widget_props = {
                     .expand = TRUE,
                     .fill = TRUE,
+                    .padding = 5,
+                    .justify = "start"
+                }
+            },
+            &(Element){
+                .widget = create_close_button(),
+                .widget_props = {
+                    .expand = FALSE,
+                    .fill = FALSE,
                     .padding = 5,
                     .justify = "start"
                 }
@@ -49,12 +59,8 @@ int main(int argc, char *argv[])
         }
     });
 
-    gtk_box_pack_start(GTK_BOX(view), create_close_button(), FALSE, FALSE, 5);
-
     gtk_container_add(GTK_CONTAINER(window), view);
     gtk_widget_show_all(window);
-
-    g_signal_connect(window, "key_press_event", G_CALLBACK(on_key_press), NULL);
 
     gtk_main();
 

@@ -5,6 +5,7 @@
 
 #define DEFAULT_WIDTH 400
 #define DEFAULT_HEIGHT 300
+#define MAX_ELEMENT_COUNT 20
 
 static enum ButtonTypes {
     PRIMARY = 0,
@@ -28,14 +29,15 @@ typedef struct {
 } ButtonProps;
 
 typedef struct {
-    GtkWidget *element;
+    GtkWidget *widget;
     WidgetProps widget_props;
 } Element;
 
 typedef struct {
     gint spacing;
     GtkOrientation orientation;
-    Element *elements[5];
+    Element *elements[MAX_ELEMENT_COUNT];
+    guint element_count;
 } ViewProps;
 
 
